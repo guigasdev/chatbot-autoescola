@@ -115,49 +115,46 @@ def reply():
          msg = 'Desculpa nao entendi a sua duvida, voce quis dizer "'+sugestion+'"?\n(se a palavra for essa, redigite-a)' 
          sendMessage(msg, sen_num, me_num)         
 
-def secondReply(msgtext):
+def secondReply(inte):
     sen_num = request.form.get("From")
     me_num = request.form.get("To")
-
-    
-    if(msgtext == "1"):
-        msg = "Possuímos 4 unidades: Av. Desembargador Gonzaga, 752  – Cidade dos Funcionários, Fortaleza – CE, 60823-000 ; R. Paulo Roberto Pinheiro, 70 – Guararapes, Fortaleza – CE, 60810-100 ; Av. Bernardo Manuel, 9380 – Itaperi, Fortaleza – CE, 60410-234 ; Av. Prof. Fco. Oscar Rodrigues, 379 – Jereissati II, Maracanaú – CE, 61901-090  "
-        sendMessage(msg, sen_num, me_num)
+    if(inte == "1"):
+        msg = "Nós ficamos localizados na Av. Rui Barbosa, 3100 venha nos visitar!!"
+        sendMessage(msg, sen_num,me_num)
         loop()
-    elif(msgtext == "2"):
-        msg = "Me diga qual a sua preferencia:\n - tipo A \n - tipo B\n - A e B"
-        sendMessage(msg, sen_num, me_num)
-        
-    elif(msgtext == "3"):
-        msg = "Para mais informações sobre a Autoescola, acesse nosso site: autoescolaari.com/"
-        sendMessage(msg, sen_num, me_num) 
+    if(inte == "2"):
+        msg = "Nós tiramos a sua carteira das categoria A e B"
+        sendMessage(msg, sen_num,me_num)
         loop()
-    elif(msgtext == "4"):
-        msg = "Para acessar o nosso site basta clicar no link a seguir:\n autoescolaari.com/"
-        sendMessage(msg, sen_num, me_num)
+    if(inte == "3"):
+        msg = "Vou te mostrar uma lista de valores de acordo com a categoria\n - Categoria A: 1200 R$\n - Categoria B: 1980 R$\nLembrando que parcelamos em até 10x sem juros e nesses valores já estão incluidas as taxas do detran!!"
+        sendMessage(msg, sen_num,me_num)
         loop()
-    elif(msgtext == "5"):
-        msg = "Certo. logo um atentende irá vir lhe ajudar."
-        sendMessage(msg, sen_num, me_num)
-        msg = "Precisa de mais alguma ajuda?"
+    if(inte == "4"):
+        msg = "O processo de forma geral varia muito, mas a média de tempo até tirar a sua carteira é de 3 a 4 meses!!"
+        sendMessage(msg, sen_num,me_num)
         loop()
-    elif(msgtext == "6"):
-        msg = "Para agendar uma aula prática basta falar com um consultor e marcar o seu horario!"
-        sendMessage(msg, sen_num, me_num)
-        msg = "Precisa de mais alguma ajuda?"
-    elif(msgtext == "7"):
-        msg = "Me diga qual o setor de sua preferencia:\n - Administrativo \n - Professores"
-        sendMessage(msg, sen_num, me_num)
+    if(inte == "5"):
+        msg = "O processo de renovação da carteira é diretamenete com o detran, mas você pode marcar aulas extras se estiver precisando basta falar com um de nossos atendentes!"
+        sendMessage(msg, sen_num,me_num)
+        loop()
+    if(inte == "6"):
+        msg = "Para fazer as provas teoricas apenas a sua identidade, mas para as aulas e prova pratica você precisara portar a sua LADV feita pela nossa auto escola!"
+        sendMessage(msg, sen_num,me_num)
+        loop()
+    if(inte=="7"):
+        msg = "Claro, para falar com um de nossos atendentes fixos basta adicionar o seguinte contato (85) 9999999999"
+        sendMessage(msg, sen_num,me_num)
         loop()
         
 
 def ajuda():
     sen_num = request.form.get("From")
     me_num = request.form.get("To")
-
-    
-    msg = " 1 - Onde fica localizado? \n 2 - Solicitar Habilitação \n 3 - Autoescola \n 4 - Visitar site \n 5 - Atendimento?\n 6 - Quero agendar uma aula prática \n 7 - Falar com um consultar"
-    sendMessage(msg, sen_num, me_num)
+    msg = "Como posso ajuda-lo?"
+    sendMessage(msg, sen_num,me_num)
+    msg = " 1 - Localização\n 2 - Quais categorias vocês tem?\n 3 - Qual o valor pra tirar a carteira?\n 4 - Quanto tempo demora pra tirar a carteira?\n 5 - Como funciona o processo de renovação?\n 6 - Quais documentos são necessarios para tirar a carteira?\n 7 - Falar com um atendente"
+    sendMessage(msg, sen_num,me_num)
 
 def intro():
     sen_num = request.form.get("From")
