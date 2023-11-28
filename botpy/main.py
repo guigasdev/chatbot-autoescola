@@ -7,14 +7,14 @@ from openai import OpenAI
 
 client_openai = OpenAI(
     #defaults to os.environ.get("OPENAI_API_KEY")
-    api_key="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",
+    api_key="",
 )
 
 apbot = Flask(__name__)
 def sendMessage(text : str, to: str, fromwwp: str):
 
-    account_sid = "AC062b820202641a14ea00db8c5e94efff"
-    auth_token = "1bb965f6da5c9aedae7eb64915a29c29"
+    account_sid = ""
+    auth_token = ""
     client = Client(account_sid, auth_token)
     
     message = client.messages.create(
