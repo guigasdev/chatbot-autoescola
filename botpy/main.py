@@ -4,6 +4,7 @@ from flask import Flask,request
 from twilio.twiml.messaging_response import MessagingResponse
 import Levenshtein
 from openai import OpenAI
+import openai
 
 client_openai = OpenAI(
     #defaults to os.environ.get("OPENAI_API_KEY")
@@ -23,6 +24,13 @@ def sendMessage(text : str, to: str, fromwwp: str):
         to=to
         )
     print(message.sid)
+
+response = openai.ChatCompletion.create(
+  model="gpt-3.5-turbo",  
+  messages=[
+    {"role": "assistant", "content": "Só me responda coisas relacionadas a AutoEscola Ari, localizada em fortaleza/Ceará. para checar as informações, consulte: https://autoescolaari.com "},
+  ]
+)
 
 
 
@@ -71,9 +79,7 @@ def reply():
     elif(msgt == "Carteira tipo A" or msgt == "Carteira tipo B" or msgt == "A" or msgt == "B" or msgt == "Carteira tipo A e B" or msgt == "A e B" or msgt == "Quero tirar a carteira de carro" or msgt == "quero tirar a carteira de moto" or msgt == "carro" or msgt == "moto" or msgt == "Como tirar a carteira" or msgt == "como dirigir" or msgt == "Como entrar?" or msgt == "como começar?" or msgt == " Como iniciar" or msgt == "como começar" or msgt == "Como começo?"):
            especifico(2)
            loop()
-    elif(msgt == "Seguro" or msgt == "seguro" or msgt =="vocês fazem seguro?" or msgt == "quero seguro" or msgt == "eu quero um seguro" or msgt == "onde arranjo um seguro?" or msgt == "preciso de seguro"):
-          especifico(4)
-          loop()
+
     elif(msgt == "Falar com atendente" or msgt == "Atendente" or msgt == "atendente" or msgt == "Vendedor" or msgt == "vendedor" or msgt == "Falar com vendedor" or msgt == "atendimento" or msgt == "Atendimento" or msgt == "Quero atendimento" or msgt == "quero atendimento" or msgt == "Quero falar com o atendente" or msgt == "quero falar com o atendente" or msgt == "Quero falar com a atendente" or msgt == "quero falar com a atendente"  or msgt == "Quero falar com o vendedor" or msgt == "quero falar com o vendedor" or msgt == "Quero falar com a vendedora" or msgt == "quero falar com a vendedora" or msgt == "Quero atendimento" or msgt == "quero atendimento" or msgt == "quero ser atendido" or msgt == "Quero ser atendido" or msgt == "atendente" or msgt == "atendimento" or msgt == "vendedor" or msgt == "quero falar com um atedente" or msgt == "eu quero falar com um atendente" or msgt == "quero falar com o atendente" or msgt == "quero falar com a atendente" or msgt =="quero atendimento" or msgt == "solicito atendimento" or msgt == "eu preciso falar com um atendente" or msgt == "eu preciso falar com uma atendente" or msgt == "eu preciso falar com um vendedor" or msgt == "eu quero falar com um vendedor" or msgt == "como eu falo com um atendente?" or msgt == "como eu falo com um vendedor?" or msgt == "como eu falo com uma atendente?" or msgt == "como eu falo com o atendente?" or msgt == "quero ser atendido" or msgt =="quero falar com alguem" or msgt == "preciso falar com um atendente" or msgt == "quero falar com um atendente"):
          especifico(5)
          loop()
@@ -85,31 +91,10 @@ def reply():
           msg = "Segue o contato do setor administrativo:\n +55 85 99957-7909"
           sendMessage(msg,sen_num,me_num)
           loop()
-    elif(msgt == "setor rh" or msgt == "rh" or msgt == "setor do rh"):
-          msg = "Segue o contato do setor RH:\+55 85 99957-7909"
-          sendMessage(msg,sen_num,me_num)
-          loop()
     elif(msgt == "vendedor" or msgt == "vendedores" or msgt == "setor de vendedores" or msgt == "setor dos vendedores" or msgt == "setor de vendedor" or msgt == "setor dos vendedor" or msgt == "setor do vendedor" or msgt == "setor de vendas" or msgt == "setor de venda"):
            msg = "Segue o contato do setor de vendas:\+55 85 99957-7909"
            sendMessage(msg,sen_num,me_num)
-           loop()
-    elif(msgt == "4.1" or msgt == "41" or msgt == "4,1" or msgt == "4 1"):
-          msg = "Nós temos o limite de três carros por dia venha nos vistitar e fazer o seu test drive"
-          sendMessage(msg,sen_num,me_num)
-          loop()
-    elif(msgt == "4.2" or msgt == "42" or msgt == "4,2" or msgt == "4 2"):
-          msg = "O nosso tempo limite é de 45 minutos por cada test drive"
-          sendMessage(msg, sen_num, me_num)
-          loop()
-    elif(msgt == "5.1" or msgt == "51" or msgt == "5,1" or msgt == "5 1"):
-          msg = "Nos recomendamos o seguro ..."
-          sendMessage(msg, sen_num,me_num)
-          loop()
-    elif(msgt == "5.2" or msgt == "52" or msgt == "5,2" or msgt == "5 2"):
-          msg = "Nós estamos focado completamente na venda de carros mas indicamos o seguro ... de extrema confiança!!"
-          sendMessage(msg, sen_num,me_num)
-          loop()
-    
+           loop()   
     else:
          sugestion = find_closest_match(msgt, valid_words) 
          msg = 'Desculpa nao entendi a sua duvida, voce quis dizer "'+sugestion+'"?\n(se a palavra for essa, redigite-a)' 
@@ -118,8 +103,8 @@ def reply():
 def secondReply(inte):
     sen_num = request.form.get("From")
     me_num = request.form.get("To")
-    if(inte == "1"):
-        msg = "Nós ficamos localizados na Av. Rui Barbosa, 3100 venha nos visitar!!"
+    if(inte == "onde vai acontecer o local?"):
+        msg = "R. Paulo Roberto Pinheiro, 70 – Guararapes, Fortaleza – CE, 60810-100"
         sendMessage(msg, sen_num,me_num)
         loop()
     if(inte == "2"):
