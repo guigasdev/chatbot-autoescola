@@ -22,7 +22,7 @@ def sendMessage(text : str, to: str, fromwwp: str):
     client = Client(account_sid, auth_token)
     
     message = client.messages.create(
-        from_ ='whatsapp:+14155238886',
+        from_ =f'whatsapp:{WHATSAPP_NUMBER}',
         body=text,
         to=to
         )
